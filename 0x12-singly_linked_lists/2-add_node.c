@@ -3,46 +3,29 @@
 #include "lists.h"
 
 /**
- * add_node - adds a node to a list_t list
+ * add_node - adds a new node at the beginning of a linked list
+ * @head: double pointer to the list_t list
+ * @str: new string to add in the node
  *
- * @head: node to add a node after
- * @str: str to put into struct
- *
- * Return: address of new element
+ * Return: the address of the new element, or NULL if it fails
  */
 list_t *add_node(list_t **head, const char *str)
 {
-	char *newstr, *ptr;
-	list_t *newnode;
-	int len = 0;
+	list_t *new;
+	unsigned int len = 0;
 
-	if (str != NULL)
-	{
-		ptr = (char *) str;
-		while (*ptr++)
-			len++;
-		newstr = malloc(sizeof(char) * (len + 1));
-		if (newstr == NULL)
-			return (NULL);
+	while (str[len])
+		len++;
 
-		ptr = newstr;
-		while (*str)
-			*ptr++ = *str++;
-	}
-	else
-		newstr = NULL;
-
-	newnode = malloc(sizeof(list_t));
-	if (newnode == NULL)
-	{
-		free(newstr);
+	new = malloc(sizeof(list_t));
+	if (!new)
 		return (NULL);
-	}
 
-	if (*head != NULL)
-		newnode->next = *head;
-	newnode->str = newstr;
-	newnode->len = len;
-	*head = newnode;
-	return (newnode);
+	new->str = strdup(str);
+	new->len = len;
+	new->next = (*head);
+	(*head) = new;
+
+	return (*head);
 }
+
