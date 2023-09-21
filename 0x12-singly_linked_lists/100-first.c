@@ -1,14 +1,11 @@
 #include <stdio.h>
-
-void first(void) __attribute__ ((constructor));
+#include <stdlib.h>
 
 /**
- * first - prints a sentence before the main
- * function is executed
+ * turtle - prints before main
  */
-void first(void)
+void __attribute__ ((constructor)) turtle()
 {
- printf("You're beat! and yet, you must allow,\n");
- printf("I bore my house upon my back!\n");
+	printf("You're beat! and yet, you must allow,\n"
+	       "I bore my house upon my back!\n");
 }
-
